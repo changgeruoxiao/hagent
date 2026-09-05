@@ -6,6 +6,9 @@ from pathlib import Path
 import pcbnew
 
 WS = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(Path(__file__).parent))
+from project_config import BOARD_W, BOARD_H  # noqa: E402
+
 PCB = WS / "kicad" / "stm32h743_core.kicad_pcb"
 SES = WS / "kicad" / "stm32h743_core.ses"
 
@@ -40,9 +43,9 @@ def main():
         zone.SetNet(net_by_name[net_name])
         po = zone.Outline()
         po.NewOutline()
-        for x, y in ((0, 0), (pcbnew.FromMM(75), 0), (pcbnew.FromMM(75), pcbnew.FromMM(55)),
-                     (0, pcbnew.FromMM(55))):
-            po.Append(pcbnew.VECTOR2I(x, y))
+        # 板尺寸只能来自 project_config，禁止历史尺寸常量在收尾脚本中漂移。
+        for x, y in ((0, 0), (BOARD_W, 0), (BOARD_W, BOARD_H), (0, BOARD_H)):
+            po.Append(pcbnew.VECTOR2I(pcbnew.FromMM(x), pcbnew.FromMM(y)))
         zone.SetMinThickness(pcbnew.FromMM(0.15))
         try:
             zone.SetLocalClearance(pcbnew.FromMM(0.3))
@@ -60,7 +63,7 @@ def main():
     z2 = add_zone(pcbnew.In2_Cu, "+3V3")
     filler = pcbnew.ZONE_FILLER(board)
     filler.Fill([z1, z2])
-    print("灌铜完成")
+    print(f"灌铜完成: {BOARD_W:g}x{BOARD_H:g}mm")
 
     pcbnew.SaveBoard(str(PCB), board)
     print("已保存", PCB.name)
