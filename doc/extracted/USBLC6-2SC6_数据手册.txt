@@ -1,0 +1,394 @@
+
+--- PDF PAGE 1 ---
+This is information on a product in full production. 
+September 2012 Doc ID 023201 Rev 2 1/9
+9
+USBLC6-2SC6Y
+Automotive very low capacitance ESD protection
+Datasheet  production data
+Features
+■ 2 data lines protected
+■ Protects VBUS
+■ Very low capacitance: 2.5 pF
+■ Very low leakage current: 10 nA
+■ SOT23-6L package
+■ RoHS compliant
+■ AEC-Q101 qualified
+Benefits
+■ Very low capacitance between lines to GND for 
+optimized data integrity and speed
+■ Low PCB space consumption
+■ Enhanced ESD protection. ISO10605 up to 
+25 kV guaranteed at device level
+■ ESD protection of VBUS
+■ High reliability offered by monolithic integration
+■ Fast response time
+■ Consistent D+ / D- signal balance:
+– Very low capacitance matching tolerance
+I/O to GND = 0.015 pF
+– Compliant with USB 2.0 requirements
+Complies with the following standards
+■ ISO10605: C = 150 pF, R = 330 
+– 25 kV (air discharge)
+– 15 kV (contact discharge)
+■ ISO10605: C = 330 pF, R = 330 
+– 15 kV (air discharge)
+– 15 kV (contact discharge)
+■ ISO7637-3
+– Pulse 3a: Vs = -150 V
+– Pulse 3b: Vs = +100 V
+Figure 1. Functional diagram
+Applications
+■ USB 2.0 ports up to 480 Mb/s (high speed)
+■ Compatible with USB 1.1 low and full speed
+■ High-speed datalines in smart junction boxes
+■ Ethernet port: 10/100 Mb/s
+■ Video line protection
+Description
+The USBLC6-2SC6Y is a monolithic device 
+dedicated to ESD protection of high speed 
+interfaces, such as USB 2.0, Ethernet links and 
+video lines.
+The very low line capacitance secures a high level 
+of signal integrity without compromising in 
+protecting sensitive chips against the most 
+stringent characterized ESD strikes.
+TM: Transil is a trademark of STMicroelectronics
+11 6
+2 5
+3 4
+I/O1 I/O1
+GND V BUS
+I/O2 I/O2
+SOT23-6L
+USBLC6-2SC6Y(JEDEC MO178AB)
+www.st.com
+--- PDF PAGE 2 ---
+Characteristics USBLC6-2SC6Y
+2/9 Doc ID 023201 Rev 2
+1 Characteristics
+         
+Figure 2. Electrical characteristics (definitions)
+         
+Table 1. Absolute ratings
+Symbol Parameter Value Unit
+VPP
+(1)
+1. For a surge greater than the maximum val ues, the diode will fail in short-circuit.
+Peak pulse voltage
+ISO 10605 (C = 150 pF , R = 330 ):
+Air discharge
+Contact discharge
+ISO 10605 (C = 300 pF , R = 330 ):
+Air discharge
+Contact discharge
+25
+15
+15
+15
+kV
+Tstg Storage temperature range -55 to +150 °C
+Tj Operating junction temperature range -40 to +150 °C
+TL Lead solder temperature (10 seconds duration) 260 °C
+Table 2. Electrical characteristics (T amb = 25 °C)
+Symbol Parameter Test conditions Min. Typ. Max. Unit
+IRM Leakage current V RM = 5.25 V 10 150 nA
+VBR
+Breakdown voltage between VBUS 
+and GND IR = 1 mA 6 V
+VF Forward voltage I F = 10 mA 1.1 V
+VCL Clamping voltage
+IPP = 1 A, 8/20 µs
+Any I/O pin to GND 12 V
+IPP = 5 A, 8/20 µs
+Any I/O pin to GND 17 V
+Ci/o-GND Capacitance between I/O and GND
+VR = 1.65 V
+2.5 3.5
+pF
+Ci/o-GND
+Interline capacitance matching 
+between I/O and GND 0.015
+Ci/o-i/o Capacitance between I/O
+VR = 1.65 V
+1.2 1.7
+pF
+Ci/o-i/o
+Interline capacitance matching 
+between I/O 0.04
+Symbol     Parameter
+V =        Breakdown voltage
+I =        Leakage current @ V
+V =        Stand-off voltage
+=        Line capacitance
+BR
+RM RM
+RM
+CLINE
+V
+I
+VCLVBR VRM
+IF
+VF
+IRM
+IPP
+Slope: 1/Rd
+I =        Peak pulse currentPP
+--- PDF PAGE 3 ---
+USBLC6-2SC6Y Characteristics
+Doc ID 023201 Rev 2 3/9
+         
+         
+         
+Figure 3. Capacitance versus voltage 
+(typical values)
+Figure 4. Line capacitance versus frequency 
+(typical values)
+0.0
+0.5
+1.0
+1.5
+2.0
+2.5
+3.0
+0.0 0.5 1.0 1.5 2.0 2.5 3.0 3.5 4.0 4.5 5.0
+C(pF)
+F = 1MHz
+VOSC = 30mVRMS
+Tj = 25°C
+Cj = I/O - I/O
+CO = I/O - GND
+Data line voltage (V)
+0.0
+0.2
+0.4
+0.6
+0.8
+1.0
+1.2
+1.4
+1.6
+1.8
+2.0
+2.2
+2.4
+2.6
+2.8
+1 10 100 1000
+C(pF)
+VOSC = 30mVRMS
+Tj = 25°C
+VLINE = 0 V to 3.3 V
+F(MHz)
+Figure 5. Relative variation of leakage 
+current versus junction 
+temperature (typical values)
+Figure 6. Frequency response
+1
+10
+100
+25 50 75 100 125
+T (°C)j
+V =5VBUS
+I[ TRM j ] / I [TRM j =25°C]
+100.0k 1.0M 10.0M 100.0M 1.0G
+-20.00
+-15.00
+-10.00
+-5.00
+0.00
+S21(dB)
+F(Hz)
+Figure 7. ESD response to ISO10605, 
+C= 150 pF, R = 330 (+15 kV air 
+discharge)
+Figure 8. ESD response to ISO10605, 
+C=1 5 0p F ,  R=3 3 0(-15 kV air 
+discharge)
+Vin
+Vout
++5 V
+IN OUT
+TEST BOARD
+ESD SURGE
+USBLC6-2SC6
+Vin
+Vout
++5 V
+IN OUT
+TEST BOARD
+ESD SURGE
+USBLC6-2SC6
+--- PDF PAGE 4 ---
+Application and design guidelines USBLC6-2SC6Y
+4/9 Doc ID 023201 Rev 2
+Figure 9. Analog crosstalk results
+2 Application and design guidelines
+More information is available in the STMicroelectronics Application note AN2689, 
+“Protection of automotive electronics from electrical hazards, guidelines for design and 
+component selection”. 
+3 Ordering information scheme
+Figure 10. Ordering information scheme
+100.0k 1.0M 10.0M 100.0M 1.0G
+- 120.00
+- 90.00
+- 60.00
+- 30.00
+0.00
+dB
+F (Hz)
+USB    LC    6  -  2    SC6 Y
+Product designation
+Low capacitance
+Breakdown voltage
+Package
+Automotive grade
+6 = 6.1 V
+2 = 2 lines
+SC6 = SOT23-6L
+Number of lines protected
+--- PDF PAGE 5 ---
+USBLC6-2SC6Y Package information
+Doc ID 023201 Rev 2 5/9
+4 Package information
+● Epoxy meets UL94, V0
+● Lead-free package
+In order to meet environmental requirements, ST offers these devices in different grades of 
+ECOPACK® packages, depending on their level of environmental compliance. ECOPACK® 
+specifications, grade definitions and product status are available at: www.st.com. 
+ECOPACK® is an ST trademark.
+         
+         
+Table 3. SOT23-6L dimensions
+Ref.
+Dimensions
+Millimeters Inches
+Min. Typ. Max. Min. Typ. Max.
+A 0.90 1.45 0.035 0.057
+A1 0 0.15 0 0.006
+A2 0.90 1.30 0.035 0.051
+b 0.30 0.50 0.012 0.020
+c 0.09 0.20 0.004 0.008
+D 2.80 3.05 0.11 0.118
+E 1.50 1.75 0.059 0.069
+e 0.95 0.037
+H 2.60 3.00 0.102 0.118
+L 0.30 0.60 0.012 0.024
+ 0° 10° 0° 10°
+Figure 11. SOT23-6L footprint
+A2
+A
+L
+H
+c
+b
+E
+D
+e
+e
+A1
+θ
+0.60
+0.952.303.50
+1.20
+1.10
+--- PDF PAGE 6 ---
+Recommendation on PCB assembly USBLC6-2SC6Y
+6/9 Doc ID 023201 Rev 2
+5 Recommendation on PCB assembly 
+5.1 Solder paste
+1. Use halide-free flux, qualification ROL0 according to ANSI/J-STD-004.
+2. “No clean” solder paste recommended.
+3. Offers a high tack force to resist component displacement during PCB movement.
+4. Use solder paste with fine particles: powder particle size 20-45 µm.
+5.2 Placement
+1. Manual positioning is not recommended.
+2. It is recommended to use the lead recognition capabilities of the placement system, not 
+the outline centering.
+3. Standard tolerance of  0.05 mm is recommended.
+4. 3.5 N placement force is recommended. Too much placement force can lead to 
+squeezed out solder paste and cause solder joints to short. Too low placement force 
+can lead to insufficient contact between package and solder paste that could cause 
+open solder joints or badly centered packages.
+5. To improve the package placement accuracy, a bottom side optical control should be 
+performed with a high resolution tool.
+6. For assembly, a perfect supporting of the PCB (all the more on flexible PCB) is 
+recommended during solder paste printing, pick and place and reflow soldering by 
+using optimized tools.
+5.3 PCB design preference
+1. To control the solder paste amount, the closed via is recommended instead of open 
+vias.
+2. The position of tracks and open vias in the solder area should be well balanced. The 
+symmetrical layout is recommended, in case any tilt phenomena caused by 
+asymmetrical solder paste amount due to the solder flow away.
+--- PDF PAGE 7 ---
+USBLC6-2SC6Y Recommendation on PCB assembly
+Doc ID 023201 Rev 2 7/9
+5.4 Reflow profile
+Figure 12. ST ECOPACK ® recommended soldering reflow profile for PCB mounting
+Note: Minimize air convection currents in the reflow oven to avoid component movement.
+250
+0
+50
+100
+150
+200
+240210180150120906030 300270
+-6° C / s
+240-245 °C
+2 - 3 °C/s
+Temperature (°C) -2 °C/s
+-3 °C/s
+Time (s)
+0.9 °C/s
+60 sec
+(90 max)
+--- PDF PAGE 8 ---
+Ordering information USBLC6-2SC6Y
+8/9 Doc ID 023201 Rev 2
+6 Ordering information
+         
+7 Revision history
+         
+Table 4. Ordering information
+Order code Marking Package Weight Base qty Delivery mode
+USBLC6-2SC6Y UL2Y SOT23-6L 16.7 mg 3000 Tape and reel
+Table 5. Document revision history
+Date Revision Changes
+16-May-2012 1 First issue.
+06-Sep-2012 2 Updated dimensions A max., b min. and L min. in Table 3.
+--- PDF PAGE 9 ---
+USBLC6-2SC6Y
+Doc ID 023201 Rev 2 9/9
+ 
+Please Read Carefully:
+Information in this document is provided solely in connection with ST products. STMicroelectronics NV and its subsidiaries (“ST”) reserve the
+right to make changes, corrections, modifications or improvements, to this document, and the products and services described herein at any
+time, without notice.
+All ST products are sold pursuant to ST’s terms and conditions of sale.
+Purchasers are solely responsible for the choice, selection and use of the ST products and services described herein, and ST as sumes no
+liability whatsoever relating to the choice, selection or use of the ST products and services described herein.
+No license, express or implied, by estoppel or otherwise, to any intellectual property rights is granted under this document. If any part of this
+document refers to any third party products or services it shall not be deemed a license grant by ST for the use of such third party products
+or services, or any intellectual property contained therein or considered as a warranty covering the use in any manner whatsoev er of such
+third party products or services or any intellectual property contained therein.
+UNLESS OTHERWISE SET FORTH IN ST’S TERMS AND CONDITIONS OF SALE ST DISCLAIMS ANY EXPRESS OR IMPLIED
+WARRANTY WITH RESPECT TO THE USE AND/OR SALE OF ST PRODUCTS INCLUDING WITHOUT LIMITATION IMPLIED
+WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE (AND THEIR EQUIVALENTS UNDER THE LAWS
+OF ANY JURISDICTION), OR INFRINGEMENT OF ANY PATENT, COPYRIGHT OR OTHER INTELLECTUAL PROPERTY RIGHT.
+UNLESS EXPRESSLY APPROVED IN WRITING BY TWO AUTHORIZED ST REPRESENTATIVES, ST PRODUCTS ARE NOT
+RECOMMENDED, AUTHORIZED OR WARRANTED FOR USE IN MILITARY, AIR CRAFT, SPACE, LIFE SAVING, OR LIFE SUSTAINING
+APPLICATIONS, NOR IN PRODUCTS OR SYSTEMS WHERE FAILURE OR MALFUNCTION MAY RESULT IN PERSONAL INJURY,
+DEATH, OR SEVERE PROPERTY OR ENVIRONMENTAL DAMAGE. ST PRODUCTS WHICH ARE NOT SPECIFIED AS "AUTOMOTIVE
+GRADE" MAY ONLY BE USED IN AUTOMOTIVE APPLICATIONS AT USER’S OWN RISK.
+Resale of ST products with provisions different from the statements and/or technical features set forth in this document shall immediately void
+any warranty granted by ST for the ST product or service described herein and shall not create or extend in any manner whatsoev er, any
+liability of ST.
+ST and the ST logo are trademarks or registered trademarks of ST in various countries.
+Information in this document supersedes and replaces all information previously supplied.
+The ST logo is a registered trademark of STMicroelectronics. All other names are the property of their respective owners.
+© 2012 STMicroelectronics - All rights reserved
+STMicroelectronics group of companies
+Australia - Belgium - Brazil - Canada - China - Czech Republic - Finland - France - Germany - Hong Kong - India - Israel - Italy - Japan - 
+Malaysia - Malta - Morocco - Philippines - Singapore - Spain - Sweden - Switzerland - United Kingdom - United States of America
+www.st.com

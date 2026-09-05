@@ -1,0 +1,42 @@
+# ---- 第三方二进制：Freerouting + JRE（约 500MB，获取方式见 README）----
+tools/freerouting/
+
+# ---- KiCad 插件私有数据（.history 内含插件自建 .git，禁止入库）----
+kicad/.history/
+kicad/revisions/
+kicad/fp-info-cache
+
+# ---- 过程 checkpoint 与工作目录 ----
+kicad/work_legacy/
+kicad/work_rebuild/
+kicad/work_v1_1/
+kicad/*checkpoint*.kicad_pcb
+kicad/before_*.kicad_pcb
+kicad/test_usb_step*
+
+# ---- 中间调试产物 ----
+kicad/probe.*
+kicad/smoke.*
+kicad/ly_*.pdf
+kicad/ly_*.png
+kicad/ly2*.pdf
+kicad/layer_1.png
+kicad/board_layers.pdf
+kicad/board_layers.svg
+kicad/overview.png
+kicad/sch_p1.png
+kicad/zoom_*.png
+kicad/freerouting.log
+
+# ---- KiCad 本地状态 ----
+*.kicad_prl
+*.bck
+__pycache__/
+
+# ---- 调试遗留（变体原理图/裁剪图）----
+kicad/t1.*
+kicad/t2.*
+kicad/t3.*
+kicad/v_*
+kicad/tile_*.png
+kicad/z_*.png
