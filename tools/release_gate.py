@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 """Prototype release gate.
 
-This is intentionally stricter than KiCad DRC alone. It verifies that the
-checked-in/intermediate artifacts are fresh enough for the current build and
-then executes the independent semantic gates.
+This is intentionally stricter than KiCad DRC alone. It verifies artifact
+lineage/freshness and then executes the independent semantic gates.
 
 Run after schematic/netlist/PCB/routing/DRC generation and before fab export.
 """
@@ -16,6 +15,13 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 from project_config import DRC, NET, PCB, SCH, WS  # noqa: E402
+
+TOOLS = WS / "tools"
+GEN_SCHEMATIC = TOOLS / "gen_schematic.py"
+GEN_PCB = TOOLS / "gen_pcb.py"
+FINISH_PCB = TOOLS / "finish_pcb.py"
+PIPELINE = TOOLS / "pipeline_pcb.py"
+PROJECT_CONFIG = TOOLS / "project_config.py"
 
 
 def fail(msg: str) -> None:
@@ -35,7 +41,7 @@ def require_fresh(child: Path, parents: tuple[Path, ...], label: str) -> None:
 
 
 def run_gate(script: str) -> None:
-    cmd = [sys.executable, str(WS / "tools" / script)]
+    cmd = [sys.executable, str(TOOLS / script)]
     print("gate:", " ".join(cmd))
     rc = subprocess.run(cmd, cwd=str(WS)).returncode
     if rc:
@@ -52,10 +58,13 @@ def check_drc_errors() -> None:
 
 
 def main() -> int:
-    # Artifact lineage: a PCB build must never silently consume an older .net;
-    # parity/DRC must describe the current PCB + schematic pair.
+    # Source -> artifact lineage. A changed generator/config must invalidate old
+    # generated artifacts; otherwise a clean DRC could describe the wrong build.
+    require_fresh(SCH, (GEN_SCHEMATIC, PROJECT_CONFIG), "generator/config -> schematic")
     require_fresh(NET, (SCH,), "schematic -> netlist")
-    require_fresh(DRC, (SCH, PCB), "schematic+PCB -> DRC/parity report")
+    require_fresh(PCB, (NET, GEN_PCB, PROJECT_CONFIG), "netlist/generator/config -> PCB")
+    require_fresh(DRC, (SCH, PCB, FINISH_PCB, PIPELINE, PROJECT_CONFIG),
+                  "current build sources -> DRC/parity report")
 
     run_gate("check_netlist.py")
     run_gate("check_layer_policy.py")
