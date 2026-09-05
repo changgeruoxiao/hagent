@@ -1,10 +1,7 @@
 #!/usr/bin/env python3
 """设计意图门禁：禁止普通信号切割内层 plane。
 
-当前策略：
-- In1.Cu 仅允许 GND
-- In2.Cu 仅允许 +3V3
-
+策略从 project_config.PLANE_POLICY 读取，避免规格/生成器/检查器再次漂移。
 该检查针对最终 .kicad_pcb 中的 segment（走线），不替代 KiCad DRC。
 """
 from __future__ import annotations
@@ -14,12 +11,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
-from project_config import PCB  # noqa: E402
-
-POLICY = {
-    "In1.Cu": {"GND"},
-    "In2.Cu": {"+3V3"},
-}
+from project_config import PCB, PLANE_POLICY  # noqa: E402
 
 
 def iter_blocks(text: str, head: str):
@@ -70,7 +62,7 @@ def main() -> int:
             continue
         layer = lm.group(1)
         net = nm.group(1).lstrip("/")
-        allowed = POLICY.get(layer)
+        allowed = PLANE_POLICY.get(layer)
         if allowed is None or net in allowed:
             continue
         sm = re.search(r'\(start\s+([^\)]+)\)', blk)
@@ -86,7 +78,7 @@ def main() -> int:
         return 2
 
     print("✓ Layer policy gate passed")
-    for layer, nets in POLICY.items():
+    for layer, nets in PLANE_POLICY.items():
         print(f"  {layer}: only {', '.join(sorted(nets))}")
     return 0
 
