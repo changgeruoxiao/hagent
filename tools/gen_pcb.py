@@ -3,7 +3,7 @@
 
 用法: <KiCad>/bin/python.exe tools/gen_pcb.py
 依据: 规格书 §8 叠层/布线规则, §8.3 预布局策略。
-坐标: KiCad 内部坐标(原点左上, y 向下), 板 75x55mm。
+坐标: KiCad 内部坐标(原点左上, y 向下)。板尺寸/工艺参数以 project_config 为唯一真源。
 """
 import json
 import math
@@ -14,14 +14,17 @@ import pcbnew
 
 WS = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(Path(__file__).parent))
+from project_config import (  # noqa: E402
+    BOARD_W, BOARD_H, CLEARANCE, SIGNAL_WIDTH, VIA_DIAMETER, VIA_DRILL,
+    EDGE_CLEARANCE, FOOTPRINTS,
+)
 from sch_build import parse  # noqa: E402
 
 NET_FILE = WS / "kicad" / "stm32h743_core.net"
 PCB_FILE = WS / "kicad" / "stm32h743_core.kicad_pcb"
 DSN_FILE = WS / "kicad" / "stm32h743_core.dsn"
-FP_DIR = Path(r"C:\Users\27417\AppData\Local\Programs\KiCad\10.0\share\kicad\footprints")
+FP_DIR = FOOTPRINTS
 
-BOARD_W, BOARD_H = 85.0, 65.0
 MCU_CENTER = (42.5, 32.5)
 
 # ---- 固定布局(与原理图分区一致): (x, y, 旋转角) ----
@@ -38,6 +41,7 @@ PLACE = {
     "R14": (38.5, 12, 0),
     "C24": (35.5, 10.2, 270), "C25": (35.5, 15.2, 0),
     "R15": (22, 19.5, 270), "R16": (22, 22.5, 270),
+    "C28": (12.5, 15, 0),         # TPS54331 SS 慢启动电容(U2 SS 引脚左侧)
     "R17": (15.5, 24.5, 0), "C26": (15, 29, 0), "C27": (24, 22, 0),
     # USB ESD(VBUS 分压 R12/R13 为 DNP)
     "U3": (19.5, 25, 90),
@@ -188,13 +192,13 @@ def build():
     ds = board.GetDesignSettings()
     ds.SetCopperLayerCount(4)
     nc = ds.m_NetSettings.GetDefaultNetclass()
-    nc.SetClearance(mm(0.15))
-    nc.SetTrackWidth(mm(0.2))
-    nc.SetViaDiameter(mm(0.5))
-    nc.SetViaDrill(mm(0.25))
-    ds.m_CopperEdgeClearance = mm(0.3)
+    nc.SetClearance(mm(CLEARANCE))
+    nc.SetTrackWidth(mm(SIGNAL_WIDTH))
+    nc.SetViaDiameter(mm(VIA_DIAMETER))
+    nc.SetViaDrill(mm(VIA_DRILL))
+    ds.m_CopperEdgeClearance = mm(EDGE_CLEARANCE)
     ds.m_HoleToHoleMin = mm(0.5)
-    ds.m_MinThroughDrill = mm(0.25)
+    ds.m_MinThroughDrill = mm(VIA_DRILL)
     nc.SetTrackWidth(mm(0.15))   # DRC 下限=规格书最小线宽; 默认布线宽度由 DSN 类规则(0.2)控制
 
     # 网络
@@ -371,7 +375,7 @@ def build():
 
     def netclass(name, width):
         return {"name": name, "clearance": 0.15, "track_width": width,
-                "via_diameter": 0.5, "via_drill": 0.25, "uvia_diameter": 0.3,
+                "via_diameter": 0.4, "via_drill": 0.2, "uvia_diameter": 0.3,
                 "uvia_drill": 0.1, "diff_pair_width": 0.2, "diff_pair_gap": 0.25,
                 "diff_pair_via_gap": 0.25, "bus_width": 0.25,
                 "wire_width": 0.2, "pcb_color": "rgba(0, 0, 0, 0.000)"}
@@ -391,7 +395,7 @@ def build():
             "solder_mask_bridge": "warning", "pth_inside_courtyard": "warning",
             "npth_inside_courtyard": "warning", "hole_to_hole": "warning",
             "via_dangling": "warning"}}},
-        "net_settings": {"classes": [netclass("Default", 0.15), netclass("Power", 0.3)]},
+        "net_settings": {"classes": [netclass("Default", 0.15), netclass("Power", 0.5)]},
         "meta": {"filename": pro.name, "version": 3}}, ensure_ascii=False, indent=2),
         encoding="utf-8")
     print(f"已保存 {PCB_FILE.name} (无走线状态, DSN 已含预布线)")

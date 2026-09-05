@@ -1,10 +1,7 @@
 #!/usr/bin/env python3
-"""设计意图门禁：禁止普通信号切割内层 plane。
+"""设计意图门禁：禁止普通信号破坏内层 plane 策略。
 
-当前策略：
-- In1.Cu 仅允许 GND
-- In2.Cu 仅允许 +3V3
-
+策略从 project_config 读取，避免规格/生成器/检查器再次漂移。
 该检查针对最终 .kicad_pcb 中的 segment（走线），不替代 KiCad DRC。
 """
 from __future__ import annotations
@@ -14,12 +11,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
-from project_config import PCB  # noqa: E402
-
-POLICY = {
-    "In1.Cu": {"GND"},
-    "In2.Cu": {"+3V3"},
-}
+from project_config import IN2_ALLOWED_SIGNAL_NETS, PCB, PLANE_POLICY  # noqa: E402
 
 
 def iter_blocks(text: str, head: str):
@@ -70,15 +62,25 @@ def main() -> int:
             continue
         layer = lm.group(1)
         net = nm.group(1).lstrip("/")
-        allowed = POLICY.get(layer)
-        if allowed is None or net in allowed:
-            continue
+
         sm = re.search(r'\(start\s+([^\)]+)\)', blk)
         em = re.search(r'\(end\s+([^\)]+)\)', blk)
-        violations.append((layer, net, sm.group(1) if sm else "?", em.group(1) if em else "?"))
+        start = sm.group(1) if sm else "?"
+        end = em.group(1) if em else "?"
+
+        if layer == "In2.Cu":
+            # fail-closed: In2 仅允许 +3V3 或显式普通 GPIO 白名单。
+            if net not in PLANE_POLICY['In2.Cu'] and net not in IN2_ALLOWED_SIGNAL_NETS:
+                violations.append((layer, net, start, end))
+            continue
+
+        allowed = PLANE_POLICY.get(layer)
+        if allowed is None or net in allowed:
+            continue
+        violations.append((layer, net, start, end))
 
     if violations:
-        print(f"✗ Layer policy gate failed: {len(violations)} signal segments on plane layers")
+        print(f"✗ Layer policy gate failed: {len(violations)} segments violate inner-layer policy")
         for layer, net, start, end in violations[:60]:
             print(f"  - {layer}: {net}  {start} -> {end}")
         if len(violations) > 60:
@@ -86,8 +88,8 @@ def main() -> int:
         return 2
 
     print("✓ Layer policy gate passed")
-    for layer, nets in POLICY.items():
-        print(f"  {layer}: only {', '.join(sorted(nets))}")
+    print("  In1.Cu: only GND")
+    print(f"  In2.Cu: +3V3 plus {len(IN2_ALLOWED_SIGNAL_NETS)} explicit ordinary-GPIO names")
     return 0
 
 

@@ -1,8 +1,8 @@
 (export
 	(version "E")
 	(design
-		(source "C:\\Users\\27417\\Desktop\\prepre\\hagent\\kicad\\work_rebuild\\stm32h743_core.kicad_sch")
-		(date "2026-09-05T16:39:15")
+		(source "C:\\Users\\27417\\Desktop\\prepre\\hagent\\kicad\\stm32h743_core.kicad_sch")
+		(date "2026-09-05T22:18:41")
 		(tool "Eeschema 10.0.4")
 		(sheet
 			(number "1")
@@ -75,11 +75,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -129,11 +129,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -183,11 +183,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -237,11 +237,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -291,11 +291,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -345,11 +345,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -399,11 +399,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -453,11 +453,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -472,6 +472,60 @@
 				(tstamps "/")
 			)
 			(tstamps "1ec1c274-ae55-5c29-8bac-2dff6d868715")
+			(units
+				(unit
+					(name "A")
+					(pins
+						(pin
+							(num "1")
+						)
+						(pin
+							(num "2")
+						)
+					)
+				)
+			)
+		)
+		(comp
+			(ref "C28")
+			(value "10n")
+			(footprint "Capacitor_SMD:C_0402_1005Metric")
+			(fields
+				(field
+					(name "Footprint") "Capacitor_SMD:C_0402_1005Metric")
+				(field
+					(name "Datasheet")
+				)
+				(field
+					(name "Description")
+				)
+			)
+			(libsource
+				(lib "Device")
+				(part "C")
+				(description "Unpolarized capacitor")
+			)
+			(property
+				(name "Sheetname")
+				(value "stm32h743_core")
+			)
+			(property
+				(name "Sheetfile")
+				(value "stm32h743_core.kicad_sch")
+			)
+			(property
+				(name "ki_keywords")
+				(value "cap capacitor")
+			)
+			(property
+				(name "ki_fp_filters")
+				(value "C_*")
+			)
+			(sheetpath
+				(names "/")
+				(tstamps "/")
+			)
+			(tstamps "67cdf3e0-93fe-5662-b29c-19add6376a2b")
 			(units
 				(unit
 					(name "A")
@@ -507,11 +561,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -561,11 +615,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -615,11 +669,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -669,11 +723,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -723,11 +777,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -777,11 +831,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -831,11 +885,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -885,11 +939,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -939,11 +993,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -993,11 +1047,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -1047,11 +1101,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -1101,11 +1155,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -1155,11 +1209,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -1209,11 +1263,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -1263,11 +1317,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -1317,11 +1371,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -1371,11 +1425,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -1425,11 +1479,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -1479,11 +1533,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -1533,11 +1587,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -1587,11 +1641,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -1641,11 +1695,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -1695,11 +1749,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -1749,11 +1803,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -1803,11 +1857,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -1857,11 +1911,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -1911,11 +1965,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -1965,11 +2019,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -2019,11 +2073,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -2073,11 +2127,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -2127,11 +2181,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -2181,11 +2235,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -2235,11 +2289,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -2289,11 +2343,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -2343,11 +2397,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -2397,11 +2451,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -2613,11 +2667,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -2829,11 +2883,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -2928,11 +2982,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -2994,11 +3048,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -3051,11 +3105,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -3105,11 +3159,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -3159,11 +3213,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -3213,11 +3267,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -3267,11 +3321,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "dnp")
@@ -3324,11 +3378,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "dnp")
@@ -3381,11 +3435,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -3435,11 +3489,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -3489,11 +3543,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -3543,11 +3597,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -3597,11 +3651,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -3651,11 +3705,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -3705,11 +3759,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -3759,11 +3813,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -3813,11 +3867,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -3867,11 +3921,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -3921,11 +3975,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -3971,11 +4025,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -4021,11 +4075,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -4072,11 +4126,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -4123,11 +4177,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -4174,11 +4228,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -4225,11 +4279,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -4276,11 +4330,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -4327,11 +4381,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -4807,11 +4861,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(sheetpath
 				(names "/")
@@ -4874,11 +4928,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -4940,11 +4994,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -4994,11 +5048,11 @@
 			)
 			(property
 				(name "Sheetname")
-				(value "Root")
+				(value "stm32h743_core")
 			)
 			(property
 				(name "Sheetfile")
-				(value "kicad/work_rebuild/stm32h743_core.kicad_sch")
+				(value "stm32h743_core.kicad_sch")
 			)
 			(property
 				(name "ki_keywords")
@@ -9303,6 +9357,22 @@
 		)
 		(net
 			(code "129")
+			(name "/SS")
+			(class "Default")
+			(node
+				(ref "C28")
+				(pin "1")
+				(pintype "passive")
+			)
+			(node
+				(ref "U2")
+				(pin "4")
+				(pinfunction "SS_4")
+				(pintype "input")
+			)
+		)
+		(net
+			(code "130")
 			(name "/USB_DM")
 			(class "Default")
 			(node
@@ -9319,7 +9389,7 @@
 			)
 		)
 		(net
-			(code "130")
+			(code "131")
 			(name "/USB_DM_P")
 			(class "Default")
 			(node
@@ -9342,7 +9412,7 @@
 			)
 		)
 		(net
-			(code "131")
+			(code "132")
 			(name "/USB_DP")
 			(class "Default")
 			(node
@@ -9359,7 +9429,7 @@
 			)
 		)
 		(net
-			(code "132")
+			(code "133")
 			(name "/USB_DP_P")
 			(class "Default")
 			(node
@@ -9382,7 +9452,7 @@
 			)
 		)
 		(net
-			(code "133")
+			(code "134")
 			(name "/VBAT")
 			(class "Default")
 			(node
@@ -9403,7 +9473,7 @@
 			)
 		)
 		(net
-			(code "134")
+			(code "135")
 			(name "/VBUS")
 			(class "Default")
 			(node
@@ -9448,7 +9518,7 @@
 			)
 		)
 		(net
-			(code "135")
+			(code "136")
 			(name "/VBUS_F")
 			(class "Default")
 			(node
@@ -9464,7 +9534,7 @@
 			)
 		)
 		(net
-			(code "136")
+			(code "137")
 			(name "/VBUS_SENSE")
 			(class "Default")
 			(node
@@ -9479,7 +9549,7 @@
 			)
 		)
 		(net
-			(code "137")
+			(code "138")
 			(name "/VCAP")
 			(class "Default")
 			(node
@@ -9512,7 +9582,7 @@
 			)
 		)
 		(net
-			(code "138")
+			(code "139")
 			(name "/VDDA")
 			(class "Default")
 			(node
@@ -9543,7 +9613,7 @@
 			)
 		)
 		(net
-			(code "139")
+			(code "140")
 			(name "/VREF+")
 			(class "Default")
 			(node
@@ -9569,7 +9639,7 @@
 			)
 		)
 		(net
-			(code "140")
+			(code "141")
 			(name "GND")
 			(class "Default")
 			(node
@@ -9604,6 +9674,11 @@
 			)
 			(node
 				(ref "C27")
+				(pin "2")
+				(pintype "passive")
+			)
+			(node
+				(ref "C28")
 				(pin "2")
 				(pintype "passive")
 			)
@@ -9954,7 +10029,7 @@
 			)
 		)
 		(net
-			(code "141")
+			(code "142")
 			(name "unconnected-(J3-SBU1-PadA8)")
 			(class "Default")
 			(node
@@ -9965,7 +10040,7 @@
 			)
 		)
 		(net
-			(code "142")
+			(code "143")
 			(name "unconnected-(J3-SBU2-PadB8)")
 			(class "Default")
 			(node
@@ -9976,24 +10051,13 @@
 			)
 		)
 		(net
-			(code "143")
+			(code "144")
 			(name "unconnected-(U2-EN-Pad3)")
 			(class "Default")
 			(node
 				(ref "U2")
 				(pin "3")
 				(pinfunction "EN_3")
-				(pintype "input")
-			)
-		)
-		(net
-			(code "144")
-			(name "unconnected-(U2-SS-Pad4)")
-			(class "Default")
-			(node
-				(ref "U2")
-				(pin "4")
-				(pinfunction "SS_4")
 				(pintype "input")
 			)
 		)

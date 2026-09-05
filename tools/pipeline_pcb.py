@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""PCB 流水线编排(系统 python): DSN 电源类编辑 -> Freerouting 无头布线 -> SES 回写 -> DRC -> 制造文件。
+"""PCB 流水线编排(系统 python): DSN 分类 -> Freerouting -> SES 回写 -> DRC -> Release Gate -> 制造文件。
 
 用法: python tools/pipeline_pcb.py [--max-passes 25]
 """
@@ -9,36 +9,43 @@ import sys
 from pathlib import Path
 
 WS = Path(__file__).resolve().parents[1]
-KI = Path(r"C:\Users\27417\AppData\Local\Programs\KiCad\10.0\bin")
 FR_DIR = WS / "tools" / "freerouting"
 JAVA = FR_DIR / "jdk-25.0.4.1+1-jre" / "bin" / "java.exe"
 JAR = FR_DIR / "freerouting.jar"
-DSN = WS / "kicad" / "stm32h743_core.dsn"
-SES = WS / "kicad" / "stm32h743_core.ses"
-PCB = WS / "kicad" / "stm32h743_core.kicad_pcb"
 
-# 进电源类(0.3mm 线宽)的网络; GND 不入(走线 0.2mm 更易布通, 连通靠 In1 地平面)
-# 层策略(规格书 §8): In1 仅 GND plane, In2 仅 +3V3 plane, 信号仅 F/B。
-# (类名, 成员网, 线宽mm, 允许层); Default 兜底信号网。
+sys.path.insert(0, str(WS / "tools"))
+from project_config import (  # noqa: E402
+    CLEARANCE,
+    DSN,
+    GND_TRACE_WIDTH,
+    IN2_ALLOWED_SIGNAL_NETS,
+    KI,
+    PCB,
+    POWER_WIDTH,
+    SES,
+    SIGNAL_LAYERS,
+    SIGNAL_WIDTH,
+)
+
+# Current experiment-B routing classes.
+# In1 remains GND-only. In2 may carry +3V3 plus explicit ordinary GPIO names.
 LAYER_PLAN = [
-    ("GND", ["GND"], 0.25, ["In1.Cu", "F.Cu", "B.Cu"]),
-    ("P3V3", ["+3V3"], 0.30, ["In2.Cu", "F.Cu", "B.Cu"]),
-    ("POW5", ["+5V", "VBUS", "VBUS_F", "5VIN", "PH", "3V3_SW", "BOOT"], 0.30, ["F.Cu", "B.Cu"]),
-    ("Default", None, 0.20, ["F.Cu", "B.Cu"]),
+    ("GND", ["GND"], GND_TRACE_WIDTH, ["In1.Cu", *SIGNAL_LAYERS]),
+    ("P3V3", ["+3V3"], POWER_WIDTH, ["In2.Cu", *SIGNAL_LAYERS]),
+    ("POW5", ["+5V", "VBUS", "VBUS_F", "5VIN", "PH", "3V3_SW", "BOOT"], POWER_WIDTH, list(SIGNAL_LAYERS)),
+    ("SIG2", None, SIGNAL_WIDTH, ["F.Cu", "In2.Cu", "B.Cu"]),
+    ("Default", None, SIGNAL_WIDTH, list(SIGNAL_LAYERS)),
 ]
-# 兼容引用(旧脚本)
 POWER_NETS = LAYER_PLAN[1][1] + LAYER_PLAN[2][1]
-
-
-NL = chr(10)  # DSN 文本的真实换行
+NL = chr(10)
 
 
 def edit_dsn_power_class():
-    """按 LAYER_PLAN 把网络分入带 use_layer 约束的类(幂等: 已处理则跳过)。"""
-    text = DSN.read_text(encoding='utf-8')
-    if "(class GND " in text:
-        print("DSN 层类已存在, 跳过")
-        return
+    """按 LAYER_PLAN 把网络分入带 use_layer 约束的类。"""
+    text = DSN.read_text(encoding="utf-8")
+    # DSN 每次应由 gen_pcb 新导出；若发现已分类，拒绝静默复用旧实验配置。
+    if "(class GND " in text or "(class SIG2 " in text:
+        raise SystemExit("!! DSN 已包含自定义层类；请从当前 PCB 重新导出 DSN 后再执行 dsn 步骤")
     i = text.find("(class kicad_default")
     assert i >= 0, "DSN 无 kicad_default 类"
     depth, j = 0, i
@@ -57,6 +64,7 @@ def edit_dsn_power_class():
     v0 = tail.find('"') + 1
     v1 = tail.find('"', v0)
     use_via = tail[v0:v1]
+
     buckets = {plan[0]: [] for plan in LAYER_PLAN}
     for tok in head_tokens:
         for name, members, _, _ in LAYER_PLAN:
@@ -64,29 +72,41 @@ def edit_dsn_power_class():
                 buckets[name].append(tok)
                 break
         else:
-            buckets['Default'].append(tok)
-    new_blocks = ''
+            buckets["SIG2" if tok in IN2_ALLOWED_SIGNAL_NETS else "Default"].append(tok)
+
+    new_blocks = ""
     for name, members, width, layers in LAYER_PLAN:
         nets = buckets[name]
         if not nets:
             continue
         w_units = int(width * 1000)
-        circ = ('      (circuit' + NL + '        (use_layer ' + ' '.join(layers) + ')' + NL
-                + '        (use_via "' + use_via + '")' + NL + '      )')
-        rule = ('      (rule' + NL + '        (width ' + str(w_units) + ')' + NL
-                + '        (clearance 150)' + NL + '      )')
-        new_blocks += ('    (class ' + name + ' ' + ' '.join(nets) + NL
-                       + circ + NL + rule + NL + '    )' + NL)
+        clearance_units = int(CLEARANCE * 1000)
+        circ = (
+            "      (circuit" + NL
+            + "        (use_layer " + " ".join(layers) + ")" + NL
+            + "        (use_via \"" + use_via + "\")" + NL
+            + "      )"
+        )
+        rule = (
+            "      (rule" + NL
+            + "        (width " + str(w_units) + ")" + NL
+            + "        (clearance " + str(clearance_units) + ")" + NL
+            + "      )"
+        )
+        new_blocks += (
+            "    (class " + name + " " + " ".join(nets) + NL
+            + circ + NL + rule + NL + "    )" + NL
+        )
     text = text[:i] + new_blocks.rstrip() + NL + text[j + 1:]
-    DSN.write_text(text, encoding='utf-8')
-    counts = ', '.join(pp[0] + '=' + str(len(buckets[pp[0]])) for pp in LAYER_PLAN)
-    print('DSN 层类已写入: ' + counts)
+    DSN.write_text(text, encoding="utf-8")
+    counts = ", ".join(pp[0] + "=" + str(len(buckets[pp[0]])) for pp in LAYER_PLAN)
+    print("DSN 层类已写入: " + counts)
+
 
 def run_freerouting(max_passes: int):
     cmd = [str(JAVA), "-jar", str(JAR), "-de", str(DSN), "-do", str(SES),
            "-mp", str(max_passes), "-mt", "1", "-l", "en"]
     print("Freerouting:", " ".join(cmd[1:]), flush=True)
-    # 实时落盘, 避免黑箱等待
     with open(WS / "kicad" / "freerouting.log", "w", encoding="utf-8") as logf:
         p = subprocess.Popen(cmd, stdout=logf, stderr=subprocess.STDOUT, cwd=str(FR_DIR))
         try:
@@ -112,7 +132,7 @@ def run(cmd, **kw):
     if r.returncode != 0:
         print("!! 命令失败:", " ".join(str(c) for c in cmd))
         print((r.stdout or "")[-800:], (r.stderr or "")[-800:])
-        raise SystemExit(1)
+        raise SystemExit(r.returncode or 1)
     return r
 
 
@@ -132,11 +152,16 @@ def drc():
     return len(errs_v) + len(errs_u)
 
 
+def release_gate():
+    run([sys.executable, WS / "tools" / "release_gate.py"], cwd=str(WS))
+
+
 def fab_outputs():
+    # Fail closed: manufacturing export is not allowed without the full gate.
+    release_gate()
     gdir = WS / "kicad" / "gerbers"
     gdir.mkdir(exist_ok=True)
     run([KI / "kicad-cli.exe", "pcb", "export", "gerbers", "--output", gdir, PCB])
-    # KiCad 10 renamed --drill-format to the generic --format selector.
     run([KI / "kicad-cli.exe", "pcb", "export", "drill", "--output", gdir,
          "--format", "excellon", "--excellon-units", "mm", PCB])
     run([KI / "kicad-cli.exe", "pcb", "export", "pos", "--format", "csv", "--units", "mm",
@@ -163,6 +188,9 @@ if __name__ == "__main__":
         run([KI / "python.exe", WS / "tools" / "finish_pcb.py"])
     if step in ("all", "drc"):
         n = drc()
-        raise SystemExit(0 if n == 0 else 2)
+        if n:
+            raise SystemExit(2)
+    if step in ("all", "gate"):
+        release_gate()
     if step in ("all", "fab"):
         fab_outputs()
