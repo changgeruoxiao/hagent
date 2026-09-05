@@ -26,7 +26,7 @@ EXPECT = {
              "J4.1", "J5.1", "J1.54", "J2.53", "J2.54", "TP1.1", "C46.1", "C47.1",
              "FB1.1"}, None),
     "GND": ({f"U1.{p}" for p in MCU_POWER["GND"]} | {"U2.7", "U2.9", "U3.2", "R11.2", "R10.2",
-             "R16.2", "R23.2", "C26.2", "C27.2", "D7.2", "D8.1", "C48.2", "SW1.2", "SW2.2",
+             "R16.2", "R23.2", "C26.2", "C27.2", "C28.2", "D7.2", "D8.1", "C48.2", "SW1.2", "SW2.2",
              "J3.A1", "J3.A12", "J3.B1", "J3.B12", "J4.6", "J5.3", "J1.55", "J1.56", "J2.55", "J2.56", "TP2.1"}, None),
     "VDDA": ({"U1.33", "FB1.2", "C42.1", "C43.1", "R20.1"}, set()),
     "VREF+": ({"U1.32", "R20.2", "C44.1", "C45.1"}, set()),
@@ -49,6 +49,7 @@ EXPECT = {
     "+5V": ({"D5.1", "D6.1", "U2.2", "C20.1", "C21.1", "C22.1"}, set()),
     "PH": ({"U2.8", "D7.1", "L1.1", "C23.2"}, set()),
     "BOOT": ({"U2.1", "C23.1"}, set()),
+    "SS": ({"U2.4", "C28.1"}, set()),
     "FB": ({"U2.5", "R15.2", "R16.1"}, set()),
     "COMP": ({"U2.6", "R17.1", "C27.1"}, set()),
     "COMP_M": ({"R17.2", "C26.1"}, set()),
@@ -124,7 +125,7 @@ def main():
                 errors.append(f"GPIO {name}: 无 U1 节点")
             if len(hn) != 1 and name not in ("PB0", "PC13", "PA13", "PA14", "PB3"):
                 errors.append(f"GPIO {name}: 排针节点数 {len(hn)} ({hn})")
-    # 5. U2 的 EN 应悬空(SS 已按 TI 建议外接 CSS)
+    # 5. U2 的 EN 应悬空(SS 已由 EXPECT['SS'] 强制要求外接 C28)
     for n, nodes in nets.items():
         if "U2.3" in nodes and n != "EN":
             errors.append(f"U2.3 出现在网络 {n}")
