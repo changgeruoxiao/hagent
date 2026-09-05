@@ -11,7 +11,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
-from project_config import PCB, PLANE_POLICY  # noqa: E402
+from project_config import IN2_FORBIDDEN, PCB, PLANE_POLICY  # noqa: E402
 
 
 def iter_blocks(text: str, head: str):
@@ -62,6 +62,11 @@ def main() -> int:
             continue
         layer = lm.group(1)
         net = nm.group(1).lstrip("/")
+        if layer == "In2.Cu":
+            # 实验B 语义: In2 = +3V3 plane + 白名单低速 GPIO; 敏感网禁入
+            if net in IN2_FORBIDDEN:
+                violations.append((layer, net, "?", "?"))
+            continue
         allowed = PLANE_POLICY.get(layer)
         if allowed is None or net in allowed:
             continue
@@ -78,8 +83,7 @@ def main() -> int:
         return 2
 
     print("✓ Layer policy gate passed")
-    for layer, nets in PLANE_POLICY.items():
-        print(f"  {layer}: only {', '.join(sorted(nets))}")
+    print("  In1.Cu: only GND;  In2.Cu: +3V3 plane + approved low-speed GPIO")
     return 0
 
 

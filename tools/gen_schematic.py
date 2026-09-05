@@ -10,6 +10,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 from sch_build import SchBuilder, LibCache
+from project_config import KI, NET, SCH  # noqa: E402
 from project_config import OUT
 
 WS = Path(__file__).resolve().parents[1]
@@ -270,6 +271,21 @@ def build():
     return b
 
 
+def export_netlist():
+    """artifact lineage: 原理图一变就强制重导网表, 不允许复用旧 .net。"""
+    import subprocess
+    from project_config import KI, NET, SCH
+    if NET.exists():
+        NET.unlink()  # 先删旧网表, 防止导出失败时留下陈旧产物
+    r = subprocess.run([str(KI / "kicad-cli.exe"), "sch", "export", "netlist",
+                        "--format", "kicadsexpr", "--output", str(NET), str(SCH)],
+                       capture_output=True, text=True)
+    if r.returncode != 0 or not NET.exists():
+        print(r.stdout, r.stderr)
+        raise SystemExit("网表导出失败")
+    print(f"网表已重导: {NET}")
+
+
 if __name__ == "__main__":
     b = build()
     # 自检: 引线段不得共线重叠(会意外并网)
@@ -302,4 +318,5 @@ if __name__ == "__main__":
     out.parent.mkdir(parents=True, exist_ok=True)
     b.write(out)
     print(f"已生成 {out}")
+    export_netlist()
     print(f"元件 {len(b.symbols)} 个, 走线 {len(b.wires)} 段, 标签 {len(b.labels)} 个, 电源口 {len(b.powers)} 个")

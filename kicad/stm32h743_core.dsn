@@ -35,7 +35,7 @@
     (boundary
       (path pcb 0  85000 -65000  0 -65000  0 0  85000 0  85000 -65000)
     )
-    (via "Via[0-3]_500:250_um" "Via[0-3]_400:200_um")
+    (via "Via[0-3]_400:200_um")
     (rule
       (width 150)
       (clearance 150)
@@ -141,6 +141,7 @@
       (place C55 72000 -24000 front 0 (PN 100nF))
       (place C27 24000 -22000 front 0 (PN 47pF))
       (place C26 15000 -29000 front 0 (PN 1nF))
+      (place C28 12500 -15000 front 0 (PN 10n))
       (place C23 18000 -10800 front 0 (PN 100n))
     )
     (component LED_0603_1608Metric
@@ -1167,13 +1168,6 @@
       (shape (rect B.Cu -850 -850 850 850))
       (attach off)
     )
-    (padstack "Via[0-3]_500:250_um"
-      (shape (circle F.Cu 500))
-      (shape (circle In1.Cu 500))
-      (shape (circle In2.Cu 500))
-      (shape (circle B.Cu 500))
-      (attach off)
-    )
     (padstack "Via[0-3]_400:200_um"
       (shape (circle F.Cu 400))
       (shape (circle In1.Cu 400))
@@ -1570,6 +1564,9 @@
     (net PH
       (pins C23-2 D7-1 L1-1 U2-8)
     )
+    (net SS
+      (pins C28-1 U2-4)
+    )
     (net USB_DM
       (pins U1-103 U3-3)
     )
@@ -1608,14 +1605,14 @@
         C61-2 C60-2 H4-1 H3-1 H2-1 H1-1 U1-16 U1-31 U1-38 U1-51 U1-61 U1-83 U1-94
         U1-107 U1-120 U1-130 C72-2 C71-2 C47-2 C54-2 SW1-2 SW1-2@1 R23-2 TP2-1 C55-2
         SW2-2 SW2-2@1 D8-1 C48-2 C45-2 C44-2 C43-2 C42-2 C53-2 C52-2 C51-2 C50-2 R13-2
-        R11-2 R10-2 U3-2 C27-2 C26-2 R16-2 C25-2 C24-2 C22-2 C21-2 C20-2 D7-2 U2-7
-        U2-9 J6-2 J5-3 J4-6 J3-A1 J3-A12 J3-B1 J3-B12 J3-SH J3-SH@1 J3-SH@2 J3-SH@3
+        R11-2 R10-2 U3-2 C27-2 C26-2 C28-2 R16-2 C25-2 C24-2 C22-2 C21-2 C20-2 D7-2
+        U2-7 U2-9 J6-2 J5-3 J4-6 J3-A1 J3-A12 J3-B1 J3-B12 J3-SH J3-SH@1 J3-SH@2 J3-SH@3
         J2-55 J2-56 J1-55 J1-56)
     )
         (class GND GND
       (circuit
         (use_layer In1.Cu F.Cu B.Cu)
-        (use_via "Via[0-3]_500:250_um")
+        (use_via "Via[0-3]_400:200_um")
       )
       (rule
         (width 250)
@@ -1625,7 +1622,7 @@
     (class P3V3 +3V3
       (circuit
         (use_layer In2.Cu F.Cu B.Cu)
-        (use_via "Via[0-3]_500:250_um")
+        (use_via "Via[0-3]_400:200_um")
       )
       (rule
         (width 300)
@@ -1635,17 +1632,27 @@
     (class POW5 +5V 3V3_SW 5VIN BOOT PH VBUS VBUS_F
       (circuit
         (use_layer F.Cu B.Cu)
-        (use_via "Via[0-3]_500:250_um")
+        (use_via "Via[0-3]_400:200_um")
       )
       (rule
         (width 300)
         (clearance 150)
       )
     )
-    (class Default kicad_default BOOT0 CC1 CC2 COMP COMP_M FB LED_PWR LED_USER NRST OSC32_IN OSC32_OUT OSC_IN OSC_OUT PA0 PA1 PA10 PA13 PA14 PA15 PA2 PA3 PA4 PA5 PA6 PA7 PA8 PA9 PB0 PB1 PB10 PB11 PB12 PB13 PB14 PB15 PB2 PB3 PB4 PB5 PB6 PB7 PB8 PB9 PC0 PC1 PC10 PC11 PC12 PC13 PC2_C PC3_C PC4 PC5 PC6 PC7 PC8 PC9 PD0 PD1 PD10 PD11 PD12 PD13 PD14 PD15 PD2 PD3 PD4 PD5 PD6 PD7 PD8 PD9 PDR_ON PE0 PE1 PE10 PE11 PE12 PE13 PE14 PE15 PE2 PE3 PE4 PE5 PE6 PE7 PE8 PE9 PF0 PF1 PF10 PF11 PF12 PF13 PF14 PF15 PF2 PF3 PF4 PF5 PF6 PF7 PF8 PF9 PG0 PG1 PG10 PG11 PG12 PG13 PG14 PG15 PG2 PG3 PG4 PG5 PG6 PG7 PG8 PG9 USB_DM USB_DM_P USB_DP USB_DP_P VBAT VBUS_SENSE VCAP VDDA VREF+
+    (class SIG2 kicad_default CC1 CC2 COMP COMP_M FB LED_PWR LED_USER PA0 PA1 PA10 PA15 PA2 PA3 PA4 PA5 PA6 PA7 PA8 PA9 PB0 PB1 PB10 PB11 PB12 PB13 PB14 PB15 PB2 PB4 PB5 PB6 PB7 PB8 PB9 PC0 PC1 PC10 PC11 PC12 PC13 PC2_C PC3_C PC4 PC5 PC6 PC7 PC8 PC9 PD0 PD1 PD10 PD11 PD12 PD13 PD14 PD15 PD2 PD3 PD4 PD5 PD6 PD7 PD8 PD9 PDR_ON PE0 PE1 PE10 PE11 PE12 PE13 PE14 PE15 PE2 PE3 PE4 PE5 PE6 PE7 PE8 PE9 PF0 PF1 PF10 PF11 PF12 PF13 PF14 PF15 PF2 PF3 PF4 PF5 PF6 PF7 PF8 PF9 PG0 PG1 PG10 PG11 PG12 PG13 PG14 PG15 PG2 PG3 PG4 PG5 PG6 PG7 PG8 PG9 SS VBUS_SENSE
+      (circuit
+        (use_layer F.Cu In2.Cu B.Cu)
+        (use_via "Via[0-3]_400:200_um")
+      )
+      (rule
+        (width 500)
+        (clearance 150)
+      )
+    )
+    (class Default BOOT0 NRST OSC32_IN OSC32_OUT OSC_IN OSC_OUT PA13 PA14 PB3 USB_DM USB_DM_P USB_DP USB_DP_P VBAT VCAP VDDA VREF+
       (circuit
         (use_layer F.Cu B.Cu)
-        (use_via "Via[0-3]_500:250_um")
+        (use_via "Via[0-3]_400:200_um")
       )
       (rule
         (width 200)

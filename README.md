@@ -88,7 +88,11 @@ unzip jre25.zip
 
 ## 状态与已知事项
 
-- DRC：0 error / 0 未连通；96 项警告均为丝印/禁装区/孔间距类可装配性提示（详见 `kicad/drc.json`）
+> **CURRENT STATUS: WIP / NOT FAB-READY**
+> 层策略整改（审计 P0-2）后信号仅 F/B 两层，Freerouting 未完全收敛（详见 `kicad/build_status.json` 与 `doc/方法论与流程记录.md` §5）。
+> 恢复 "Prototype Release Candidate" 状态的条件：`release_gate.py` PASS。
+
+- DRC 当前余量：若干 0.10-0.149mm 间距（高于 JLC 0.127 工艺下限）、若干未连通信号网——明细见 `kicad/build_status.json`
 - VCAP1/VCAP2 已在原理图与 PCB 层面统一为 VCAP 网并完成物理连通
 - 投板前建议在 KiCad GUI 做一次人工目检（自动化流程的视觉复核无法替代）
 - 打样回来后按规格书第 10 节验收清单 bring-up（VCAP 电压、USB DFU 枚举等）

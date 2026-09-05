@@ -1,0 +1,21 @@
+{
+  "status": "WIP_NOT_FAB_READY",
+  "timestamp": "2026-09-05",
+  "drc": {
+    "errors": 30,
+    "unconnected": 54,
+    "warnings": 56
+  },
+  "known_remainder": {
+    "unrouted_nets": "PB10/PB11/PF4 已预布线连通; 其余为 F/B-only 层策略下 Freerouting 未收敛的信号网(需补线或层策略决策)",
+    "clearance_near_miss": "若干 0.10-0.149mm 间距(高于 JLC 0.127 工艺下限, 低于 0.15 设计值)",
+    "via_in_pad_adjacent": "PB10/PB11 相邻入盘过孔 0.1mm 间距(0.5mm QFP 间距限制, 工艺可行)"
+  },
+  "gates": {
+    "netlist": "PASS",
+    "layer_policy": "PASS",
+    "kicad_drc": "FAIL (see drc)",
+    "parity": "WARN(2 noise)",
+    "release_gate": "BLOCKED"
+  }
+}

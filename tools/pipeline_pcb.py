@@ -20,10 +20,12 @@ PCB = WS / "kicad" / "stm32h743_core.kicad_pcb"
 # 进电源类(0.3mm 线宽)的网络; GND 不入(走线 0.2mm 更易布通, 连通靠 In1 地平面)
 # 层策略(规格书 §8): In1 仅 GND plane, In2 仅 +3V3 plane, 信号仅 F/B。
 # (类名, 成员网, 线宽mm, 允许层); Default 兜底信号网。
+from project_config import IN2_FORBIDDEN as _IN2F, POWER_WIDTH as _PW
 LAYER_PLAN = [
     ("GND", ["GND"], 0.25, ["In1.Cu", "F.Cu", "B.Cu"]),
     ("P3V3", ["+3V3"], 0.30, ["In2.Cu", "F.Cu", "B.Cu"]),
     ("POW5", ["+5V", "VBUS", "VBUS_F", "5VIN", "PH", "3V3_SW", "BOOT"], 0.30, ["F.Cu", "B.Cu"]),
+    ("SIG2", None, _PW, ["F.Cu", "In2.Cu", "B.Cu"]),
     ("Default", None, 0.20, ["F.Cu", "B.Cu"]),
 ]
 # 兼容引用(旧脚本)
@@ -64,7 +66,7 @@ def edit_dsn_power_class():
                 buckets[name].append(tok)
                 break
         else:
-            buckets['Default'].append(tok)
+            buckets['SIG2' if tok not in _IN2F else 'Default'].append(tok)
     new_blocks = ''
     for name, members, width, layers in LAYER_PLAN:
         nets = buckets[name]
