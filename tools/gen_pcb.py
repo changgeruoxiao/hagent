@@ -395,7 +395,7 @@ def build():
             "solder_mask_bridge": "warning", "pth_inside_courtyard": "warning",
             "npth_inside_courtyard": "warning", "hole_to_hole": "warning",
             "via_dangling": "warning"}}},
-        "net_settings": {"classes": [netclass("Default", 0.15), netclass("Power", 0.3)]},
+        "net_settings": {"classes": [netclass("Default", 0.15), netclass("Power", 0.5)]},
         "meta": {"filename": pro.name, "version": 3}}, ensure_ascii=False, indent=2),
         encoding="utf-8")
     print(f"已保存 {PCB_FILE.name} (无走线状态, DSN 已含预布线)")

@@ -1635,7 +1635,7 @@
         (use_via "Via[0-3]_400:200_um")
       )
       (rule
-        (width 300)
+        (width 500)
         (clearance 150)
       )
     )
