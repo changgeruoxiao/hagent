@@ -1,0 +1,52 @@
+{
+  "runs": [
+    {
+      "run": 1,
+      "rc": 0,
+      "runtime_s": -1.0,
+      "unrouted": 8,
+      "violations": 28,
+      "ses": "C:\\Users\\27417\\Desktop\\prepre\\hagent\\kicad\\ses_run1.ses",
+      "log": "C:\\Users\\27417\\Desktop\\prepre\\hagent\\kicad\\freerouting_run1.log",
+      "drc_errors": 36,
+      "drc_unconnected": 55
+    },
+    {
+      "run": 2,
+      "rc": 0,
+      "runtime_s": 501.3,
+      "unrouted": 8,
+      "violations": 28,
+      "ses": "C:\\Users\\27417\\Desktop\\prepre\\hagent\\kicad\\ses_run2.ses",
+      "log": "C:\\Users\\27417\\Desktop\\prepre\\hagent\\kicad\\freerouting_run2.log",
+      "drc_errors": 34,
+      "drc_unconnected": 55
+    },
+    {
+      "run": 3,
+      "rc": 0,
+      "runtime_s": 495.4,
+      "unrouted": 8,
+      "violations": 28,
+      "ses": "C:\\Users\\27417\\Desktop\\prepre\\hagent\\kicad\\ses_run3.ses",
+      "log": "C:\\Users\\27417\\Desktop\\prepre\\hagent\\kicad\\freerouting_run3.log",
+      "drc_errors": 34,
+      "drc_unconnected": 55
+    }
+  ],
+  "unconnected": [
+    55,
+    55,
+    55
+  ],
+  "drc_errors": [
+    36,
+    34,
+    34
+  ],
+  "runtime_s": [
+    -1.0,
+    501.3,
+    495.4
+  ]
+}

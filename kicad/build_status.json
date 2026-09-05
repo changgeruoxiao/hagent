@@ -1,21 +1,59 @@
 {
   "status": "WIP_NOT_FAB_READY",
-  "timestamp": "2026-09-05",
-  "drc": {
-    "errors": 30,
-    "unconnected": 54,
-    "warnings": 56
+  "date": "2026-09-06",
+  "experiment": "B (In2 = +3V3 plane + whitelisted GPIO, signals F/B only)",
+  "protocol": "3 independent Freerouting runs from identical fresh DSN, -mp 8 -mt 1",
+  "results": {
+    "unconnected_per_run": [
+      55,
+      55,
+      55
+    ],
+    "drc_errors_per_run": [
+      36,
+      34,
+      34
+    ],
+    "runtime_s_per_run": [
+      -1.0,
+      501.3,
+      495.4
+    ],
+    "freerouting_unrouted_per_run": [
+      8,
+      8,
+      8
+    ]
   },
-  "known_remainder": {
-    "unrouted_nets": "PB10/PB11/PF4 已预布线连通; 其余为 F/B-only 层策略下 Freerouting 未收敛的信号网(需补线或层策略决策)",
-    "clearance_near_miss": "若干 0.10-0.149mm 间距(高于 JLC 0.127 工艺下限, 低于 0.15 设计值)",
-    "via_in_pad_adjacent": "PB10/PB11 相邻入盘过孔 0.1mm 间距(0.5mm QFP 间距限制, 工艺可行)"
+  "min_median_max": {
+    "unconnected": [
+      55,
+      55,
+      55
+    ],
+    "drc_errors": [
+      34,
+      34,
+      36
+    ]
   },
   "gates": {
     "netlist": "PASS",
     "layer_policy": "PASS",
-    "kicad_drc": "FAIL (see drc)",
-    "parity": "WARN(2 noise)",
+    "parity": "WARN (2 J3-SBU noise)",
+    "kicad_drc": "FAIL",
     "release_gate": "BLOCKED"
-  }
+  },
+  "known_remainder": [
+    "PB10/PB11 相邻入盘过孔间距 0.1mm (0.5mm QFP 间距限制, JLC 工艺可行, waiver 待审)",
+    "55 条未连通: 信号仅 F/B 两层的容量不足, 需层策略决策(双GND/6层/补线)",
+    "5 处 0.10-0.149mm 近 miss 间距 (高于 JLC 0.127, 低于设计 0.15)"
+  ],
+  "next_review_focus": [
+    "0.20mm 修正后的 B 是否显著优于旧 0.50 污染结果",
+    "3 次 run 方差(本次: 未连通 55/55/55, 方差极小——收敛稳定但停在高位)",
+    "剩余未连通是固定拓扑瓶颈(非随机)",
+    "In2 白名单是否引发电源平面连续性风险",
+    "4 层混合 vs 6 层参考基线"
+  ]
 }
