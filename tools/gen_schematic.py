@@ -170,8 +170,9 @@ def build():
     # DCDC 主芯片
     u2 = b.place("hagent:TPS54331DDA", "U2", "TPS54331DDAR", FP["DCDC"], 55, 55,
                  custom_block=TPS54331_BLOCK, val_off=(0, 18.5))
-    for pin, net in {"1": "BOOT", "2": "+5V", "5": "FB", "6": "COMP", "7": "GND", "8": "PH", "9": "GND"}.items():
+    for pin, net in {"1": "BOOT", "2": "+5V", "4": "SS", "5": "FB", "6": "COMP", "7": "GND", "8": "PH", "9": "GND"}.items():
         conn(b, u2, pin, net)
+    rc(b, "C28", "10n", FP["C"], 30, 42, "SS", "GND")  # TPS54331 SS 慢启动电容(TI §7.3.5: 内部无软启动, CSS<=27nF)
     two_pin(b, "Device:C", "C20", "100n", FP["C"], 48, 25, "+5V", "GND")          # 输入
     two_pin(b, "Device:C", "C21", "10uF", FP["C0805"], 35, 45, "+5V", "GND")
     two_pin(b, "Device:C", "C22", "10uF", FP["C0805"], 35, 60, "+5V", "GND")

@@ -18,11 +18,27 @@ SES = WS / "kicad" / "stm32h743_core.ses"
 PCB = WS / "kicad" / "stm32h743_core.kicad_pcb"
 
 # 进电源类(0.3mm 线宽)的网络; GND 不入(走线 0.2mm 更易布通, 连通靠 In1 地平面)
-POWER_NETS = ["+3V3", "+5V", "VBUS", "VBUS_F", "5VIN", "PH", "3V3_SW", "BOOT"]
+# 层策略(规格书 §8): In1 仅 GND plane, In2 仅 +3V3 plane, 信号仅 F/B。
+# (类名, 成员网, 线宽mm, 允许层); Default 兜底信号网。
+LAYER_PLAN = [
+    ("GND", ["GND"], 0.25, ["In1.Cu", "F.Cu", "B.Cu"]),
+    ("P3V3", ["+3V3"], 0.30, ["In2.Cu", "F.Cu", "B.Cu"]),
+    ("POW5", ["+5V", "VBUS", "VBUS_F", "5VIN", "PH", "3V3_SW", "BOOT"], 0.30, ["F.Cu", "B.Cu"]),
+    ("Default", None, 0.20, ["F.Cu", "B.Cu"]),
+]
+# 兼容引用(旧脚本)
+POWER_NETS = LAYER_PLAN[1][1] + LAYER_PLAN[2][1]
+
+
+NL = chr(10)  # DSN 文本的真实换行
 
 
 def edit_dsn_power_class():
-    text = DSN.read_text(encoding="utf-8")
+    """按 LAYER_PLAN 把网络分入带 use_layer 约束的类(幂等: 已处理则跳过)。"""
+    text = DSN.read_text(encoding='utf-8')
+    if "(class GND " in text:
+        print("DSN 层类已存在, 跳过")
+        return
     i = text.find("(class kicad_default")
     assert i >= 0, "DSN 无 kicad_default 类"
     depth, j = 0, i
@@ -35,27 +51,36 @@ def edit_dsn_power_class():
                 break
         j += 1
     block = text[i:j + 1]
-    # 拆出: 头部token / (circuit...) / (rule...)
     ck = block.find("(circuit")
-    rk = block.find("(rule")
-    head_tokens = block[:ck].split()[1:]  # 去掉 "(class" "kicad_default"
+    head_tokens = block[:ck].split()[1:]
     tail = block[ck:]
-    head_tokens = [t for t in head_tokens if t not in POWER_NETS]
-    # 电源网从默认类移除后, 新建 Power 类(线宽 0.5mm=500 单位)
-    via_line = ""
-    u = tail.find('"')
-    if "(use_via" in tail:
-        v0 = tail.find('"') + 1
-        v1 = tail.find('"', v0)
-        via_line = f'      (circuit\n        (use_via "{tail[v0:v1]}")\n      )\n'
-    power_class = ('    (class Power ' + " ".join(POWER_NETS) + "\n"
-                   + via_line
-                   + '      (rule\n        (width 300)\n        (clearance 150)\n      )\n    )\n')
-    new_default = "    (class kicad_default " + " ".join(head_tokens) + "\n" + tail
-    text = text[:i] + new_default + "\n" + power_class + text[j + 1:]
-    DSN.write_text(text, encoding="utf-8")
-    print(f"DSN 已加 Power 类({len(POWER_NETS)} 网, 0.3mm); 默认类剩 {len(head_tokens)} 网")
-
+    v0 = tail.find('"') + 1
+    v1 = tail.find('"', v0)
+    use_via = tail[v0:v1]
+    buckets = {plan[0]: [] for plan in LAYER_PLAN}
+    for tok in head_tokens:
+        for name, members, _, _ in LAYER_PLAN:
+            if members and tok in members:
+                buckets[name].append(tok)
+                break
+        else:
+            buckets['Default'].append(tok)
+    new_blocks = ''
+    for name, members, width, layers in LAYER_PLAN:
+        nets = buckets[name]
+        if not nets:
+            continue
+        w_units = int(width * 1000)
+        circ = ('      (circuit' + NL + '        (use_layer ' + ' '.join(layers) + ')' + NL
+                + '        (use_via "' + use_via + '")' + NL + '      )')
+        rule = ('      (rule' + NL + '        (width ' + str(w_units) + ')' + NL
+                + '        (clearance 150)' + NL + '      )')
+        new_blocks += ('    (class ' + name + ' ' + ' '.join(nets) + NL
+                       + circ + NL + rule + NL + '    )' + NL)
+    text = text[:i] + new_blocks.rstrip() + NL + text[j + 1:]
+    DSN.write_text(text, encoding='utf-8')
+    counts = ', '.join(pp[0] + '=' + str(len(buckets[pp[0]])) for pp in LAYER_PLAN)
+    print('DSN 层类已写入: ' + counts)
 
 def run_freerouting(max_passes: int):
     cmd = [str(JAVA), "-jar", str(JAR), "-de", str(DSN), "-do", str(SES),

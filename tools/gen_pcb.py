@@ -35,7 +35,7 @@ PLACE = {
     "U2": (18, 15, 0),  "L1": (27, 12, 0),  "D7": (25.5, 17.5, 270),
     "C23": (18, 10.8, 0),
     "C20": (10, 19, 270), "C21": (15, 20.8, 270), "C22": (17, 20.8, 270),
-    "R14": (33, 12, 0),
+    "R14": (38.5, 12, 0),
     "C24": (35.5, 10.2, 270), "C25": (35.5, 15.2, 0),
     "R15": (22, 19.5, 270), "R16": (22, 22.5, 270),
     "R17": (15.5, 24.5, 0), "C26": (15, 29, 0), "C27": (24, 22, 0),
@@ -51,6 +51,7 @@ PLACE = {
     "C42": (25.5, 33.5, 270), "C43": (25.5, 37.5, 270),
     "C44": (23, 33.5, 270), "C45": (23, 37.5, 270),
     "R21": (31, 15.5, 270),       # VBAT 上拉
+    "C48": (28, 15.5, 270),       # VBAT 100nF 去耦
     "R22": (28.5, 28.5, 270),     # PDR_ON 上拉
     # 指示与人机(右侧)
     "R24": (66, 38, 270), "D8": (66, 42.5, 270),
@@ -70,7 +71,7 @@ PLACE = {
     "C71": (24, 25, 0),         # 4.7uF 补位
     "C72": (62, 44, 0),           # 4.7uF 补位
 }
-MOUNT_HOLES = [(6, 33), (79, 33), (30, 55), (55, 55)]
+MOUNT_HOLES = [(3.5, 33), (79, 33), (30, 55), (55, 55)]
 HOLE_FP = "MountingHole:MountingHole_3.2mm_M3_Pad"   # plated+GND: 布线器可识别, 兼作屏蔽地
 
 # 动态就近布局: MCU 引脚 -> (位号, 距 pad 中心 mm)
@@ -307,8 +308,8 @@ def build():
         v = pcbnew.PCB_VIA(board)
         v.SetPosition(pcbnew.VECTOR2I(mm(pos_mm[0]), mm(pos_mm[1])))
         v.SetViaType(pcbnew.VIATYPE_THROUGH)
-        v.SetWidth(mm(0.5))
-        v.SetDrill(mm(0.25))
+        v.SetWidth(mm(0.4))
+        v.SetDrill(mm(0.2))
         v.SetLayerPair(pcbnew.F_Cu, pcbnew.B_Cu)
         v.SetNet(n)
         board.Add(v)
@@ -330,36 +331,33 @@ def build():
     # PF4: pad14 犬骨左出 → In2 左缘下行 → J2.31 (THT 直连)
     pf4_pad = U1F.FindPadByNumber("14")
     pf4_net = pf4_pad.GetNet()
-    add_track((31.84, 30.25), (30.65, 30.25), pcbnew.F_Cu, pf4_net)
-    pf4_via = add_via((30.65, 30.25), pf4_net)
-    pf4_path = [(14, 30.25), (14, 61.8), (47, 61.8), (47, 63.07), (46.31, 63.07)]
+    pf4_via = add_via((31.84, 30.25), pf4_net)  # 过孔入盘(tented)
+    pf4_path = [(31.84, 30.25), (31.84, 6), (6.5, 6), (6.5, 61.8), (47, 61.8), (47, 63.07), (46.31, 63.07)]
     prev = pf4_via.GetPosition()
     for wx, wy in pf4_path[1:]:
         pt = pcbnew.VECTOR2I(mm(wx), mm(wy))
-        add_track((prev.x / 1e6, prev.y / 1e6), (wx, wy), in2, pf4_net)
+        add_track((prev.x / 1e6, prev.y / 1e6), (wx, wy), pcbnew.B_Cu, pf4_net)
         prev = pt
     # PB10: J1.15 THT 直连 → In2 上缘右行 → 下行 → 过孔 → pad69
     pb10_net = net_items["PB10"]
-    pb10_path = [(25.99, 4.47), (25.99, 3.2), (80.5, 3.2), (80.5, 45.5), (49.75, 45.5)]
+    pb10_path = [(49.75, 43.16), (25.99, 4.47)]
     prev = None
     for wx, wy in pb10_path:
         pt = pcbnew.VECTOR2I(mm(wx), mm(wy))
         if prev is not None:
-            add_track((prev.x / 1e6, prev.y / 1e6), (wx, wy), in2, pb10_net)
+            add_track((prev.x / 1e6, prev.y / 1e6), (wx, wy), pcbnew.B_Cu, pb10_net)
         prev = pt
-    add_via((49.75, 45.5), pb10_net)
-    add_track((49.75, 43.16), (49.75, 45.5), pcbnew.F_Cu, pb10_net)
+    add_via((49.75, 43.16), pb10_net)
     # PB11: J1.16 THT 直连 → In2 板缘走廊 → 右缘下行 → 过孔 → pad70
     pb11_net = net_items["PB11"]
-    pb11_path = [(25.99, 1.93), (25.99, 0.6), (84, 0.6), (84, 45.9), (50.25, 45.9)]
+    pb11_path = [(50.25, 43.16), (50.25, 47), (84, 47), (84, 0.6), (25.99, 0.6), (25.99, 1.93)]
     prev = None
     for wx, wy in pb11_path:
         pt = pcbnew.VECTOR2I(mm(wx), mm(wy))
         if prev is not None:
-            add_track((prev.x / 1e6, prev.y / 1e6), (wx, wy), in2, pb11_net)
+            add_track((prev.x / 1e6, prev.y / 1e6), (wx, wy), pcbnew.B_Cu, pb11_net)
         prev = pt
-    add_via((50.25, 45.9), pb11_net)
-    add_track((50.25, 45.9), (50.25, 43.16), pcbnew.F_Cu, pb11_net)
+    add_via((50.25, 43.16), pb11_net)
     out_n = len(pre_objs)
     ok = pcbnew.ExportSpecctraDSN(board, str(DSN_FILE))
     print(f"预布线 3 条({out_n} 对象) + DSN 导出 {'OK' if ok else '失败'}")
@@ -382,9 +380,9 @@ def build():
         "board": {"design_settings": {
             "rules": {
                 "min_clearance": 0.15, "min_track_width": 0.15,
-                "min_through_hole_diameter": 0.25, "min_via_diameter": 0.5,
-                "min_via_annular_width": 0.12, "min_hole_clearance": 0.25,
-                "min_hole_to_hole": 0.5, "min_copper_edge_clearance": 0.3,
+                "min_through_hole_diameter": 0.2, "min_via_diameter": 0.4,
+                "min_via_annular_width": 0.1, "min_hole_clearance": 0.25,
+                "min_hole_to_hole": 0.25, "min_copper_edge_clearance": 0.3,
                 "min_silk_clearance": 0.0, "min_text_height": 0.8,
                 "min_text_thickness": 0.08},
             "rule_severities": {

@@ -124,11 +124,10 @@ def main():
                 errors.append(f"GPIO {name}: 无 U1 节点")
             if len(hn) != 1 and name not in ("PB0", "PC13", "PA13", "PA14", "PB3"):
                 errors.append(f"GPIO {name}: 排针节点数 {len(hn)} ({hn})")
-    # 5. U2 的 EN/SS 应悬空
+    # 5. U2 的 EN 应悬空(SS 已按 TI 建议外接 CSS)
     for n, nodes in nets.items():
-        for hit in ("U2.3", "U2.4"):
-            if hit in nodes and n not in ("EN", "SS"):
-                errors.append(f"{hit} 出现在网络 {n}")
+        if "U2.3" in nodes and n != "EN":
+            errors.append(f"U2.3 出现在网络 {n}")
 
     print(f"网络总数: {len(nets)}")
     if errors:
