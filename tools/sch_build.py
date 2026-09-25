@@ -258,9 +258,11 @@ class SchBuilder:
         self.custom_blocks: dict[str, str] = {}
         self._libs: dict[str, LibSymbol] = {}
         self.wires: list = []
+        self.no_connects: list = []
         self.junctions: list = []
         self.labels: list = []
         self.powers: list = []
+        self.flags: list = []
         self.notes: list = []
         self._pwr_count = 0
 
@@ -320,6 +322,10 @@ class SchBuilder:
     def junction(self, x, y):
         self.junctions.append((round(float(x), 4), round(float(y), 4)))
 
+    def no_connect(self, x, y):
+        """Mark an intentionally unused symbol pin as no-connect."""
+        self.no_connects.append((round(float(x), 4), round(float(y), 4)))
+
     def rail(self, points, port_net=None, port_idx=0):
         """汇流排: 各点竖直接入公共横轨, T 型交叉处加结点, 可选单端电源口。"""
         ys = [p[1] for p in points]
@@ -354,6 +360,11 @@ class SchBuilder:
         assert net in ("GND", "+3V3", "+5V"), f"未支持的网络 {net}"
         self.lib(f"power:{net}")
         self.powers.append((net, round(float(x), 4), round(float(y), 4)))
+
+    def flag(self, x, y):
+        """Place a non-BOM PWR_FLAG symbol at a supply entry point."""
+        self.lib("power:PWR_FLAG")
+        self.flags.append((round(float(x), 4), round(float(y), 4)))
 
     def note(self, text, x, y, size=1.5):
         self.notes.append((text, x, y, size))
@@ -406,11 +417,24 @@ class SchBuilder:
                 ["instances", ["project", Q(self.project),
                  ["path", "/" + self.root_uuid, ["reference", Q(f"#PWR{idx:04d}")], ["unit", "1"]]]]]
 
+    def _power_flag(self, x, y, idx):
+        ref = f"#FLG{idx:04d}"
+        return ["symbol", ["lib_id", Q("power:PWR_FLAG")], ["at", fmt(x), fmt(y), "0"], ["unit", "1"],
+                ["exclude_from_sim", "no"], ["in_bom", "no"], ["on_board", "no"], ["dnp", "no"],
+                ["uuid", u5(f"flag/{x}/{y}")],
+                ["property", Q("Reference"), Q(ref), ["at", fmt(x), fmt(y), "0"], ["hide", "yes"],
+                 ["effects", ["font", ["size", "1.27", "1.27"]]]],
+                ["property", Q("Value"), Q("PWR_FLAG"), ["at", fmt(x), fmt(y), "0"],
+                 ["effects", ["font", ["size", "1.27", "1.27"]], ["hide", "yes"]]],
+                ["pin", Q("1"), ["uuid", u5(f"flagpin/{x}/{y}")]],
+                ["instances", ["project", Q(self.project),
+                 ["path", "/" + self.root_uuid, ["reference", Q(ref)], ["unit", "1"]]]]]
+
     def write(self, path) -> str:
         header = [
             ["version", str(FILE_VERSION)], ["generator", "hagent"], ["generator_version", Q(GEN_VERSION)],
             ["uuid", self.root_uuid], ["paper", Q(self.paper)],
-            ["title_block", ["title", Q(self.title)], ["date", Q("2026-09-05")], ["rev", Q(REVISION)]]]
+            ["title_block", ["title", Q(self.title)], ["date", Q("2026-09-25")], ["rev", Q(REVISION)]]]
         lines = ["(kicad_sch " + " ".join(sexp(h) for h in header)]
         # lib_symbols 原文嵌入
         lib_lines = ["  (lib_symbols"]
@@ -422,12 +446,17 @@ class SchBuilder:
         idx = 0
         for w in self.wires:
             lines.append("  " + sexp(self._item_wire(w)))
+        for x, y in self.no_connects:
+            lines.append("  " + sexp(["no_connect", ["at", fmt(x), fmt(y)],
+                        ["uuid", u5(f"nc/{x}/{y}")]]))
         for jx, jy in self.junctions:
             lines.append("  " + sexp(["junction", ["at", fmt(jx), fmt(jy)], ["diameter", "0"],
                         ["color", "0", "0", "0", "0"], ["uuid", u5(f"jct/{jx}/{jy}")]]))
         for net, x, y in self.powers:
             idx += 1
             lines.append("  " + sexp(self._power(net, x, y, idx)))
+        for idx, (x, y) in enumerate(self.flags, start=1):
+            lines.append("  " + sexp(self._power_flag(x, y, idx)))
         for text, x, y, side in self.labels:
             lines.append("  " + sexp(self._label(text, x, y, side)))
         for inst in self.symbols:

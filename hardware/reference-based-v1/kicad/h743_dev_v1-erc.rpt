@@ -1,0 +1,78 @@
+ERC report (2026-09-25T22:31:52, Encoding UTF8)
+Report includes: Errors, Warnings
+
+***** Sheet /
+[isolated_pin_label]: Label connected to only one pin
+    ; warning
+    @(283.21 mm, 171.45 mm): Label 'ETH_TX_EN'
+[isolated_pin_label]: Label connected to only one pin
+    ; warning
+    @(283.21 mm, 176.53 mm): Label 'ETH_TXD0'
+[isolated_pin_label]: Label connected to only one pin
+    ; warning
+    @(283.21 mm, 179.07 mm): Label 'ETH_TXD1'
+[isolated_pin_label]: Label connected to only one pin
+    ; warning
+    @(356.87 mm, 118.11 mm): Label 'ETH_REF_CLK'
+[isolated_pin_label]: Label connected to only one pin
+    ; warning
+    @(356.87 mm, 120.65 mm): Label 'ETH_MDIO'
+[isolated_pin_label]: Label connected to only one pin
+    ; warning
+    @(356.87 mm, 123.19 mm): Label 'USB_HS_ULPI_D0'
+[isolated_pin_label]: Label connected to only one pin
+    ; warning
+    @(356.87 mm, 128.27 mm): Label 'USB_HS_ULPI_CK'
+[isolated_pin_label]: Label connected to only one pin
+    ; warning
+    @(356.87 mm, 133.35 mm): Label 'ETH_CRS_DV'
+[isolated_pin_label]: Label connected to only one pin
+    ; warning
+    @(356.87 mm, 138.43 mm): Label 'USB_FS_VBUS'
+[isolated_pin_label]: Label connected to only one pin
+    ; warning
+    @(356.87 mm, 143.51 mm): Label 'USB_FS_DM'
+[isolated_pin_label]: Label connected to only one pin
+    ; warning
+    @(356.87 mm, 146.05 mm): Label 'USB_FS_DP'
+[isolated_pin_label]: Label connected to only one pin
+    ; warning
+    @(356.87 mm, 158.75 mm): Label 'USB_HS_ULPI_D1'
+[isolated_pin_label]: Label connected to only one pin
+    ; warning
+    @(356.87 mm, 161.29 mm): Label 'USB_HS_ULPI_D2'
+[isolated_pin_label]: Label connected to only one pin
+    ; warning
+    @(356.87 mm, 171.45 mm): Label 'USB_HS_ULPI_D7'
+[isolated_pin_label]: Label connected to only one pin
+    ; warning
+    @(356.87 mm, 184.15 mm): Label 'USB_HS_ULPI_D3'
+[isolated_pin_label]: Label connected to only one pin
+    ; warning
+    @(356.87 mm, 186.69 mm): Label 'USB_HS_ULPI_D4'
+[isolated_pin_label]: Label connected to only one pin
+    ; warning
+    @(356.87 mm, 189.23 mm): Label 'USB_HS_ULPI_D5'
+[isolated_pin_label]: Label connected to only one pin
+    ; warning
+    @(356.87 mm, 191.77 mm): Label 'USB_HS_ULPI_D6'
+[isolated_pin_label]: Label connected to only one pin
+    ; warning
+    @(356.87 mm, 201.93 mm): Label 'USB_HS_ULPI_STP'
+[isolated_pin_label]: Label connected to only one pin
+    ; warning
+    @(356.87 mm, 204.47 mm): Label 'ETH_MDC'
+[isolated_pin_label]: Label connected to only one pin
+    ; warning
+    @(356.87 mm, 212.09 mm): Label 'ETH_RXD0'
+[isolated_pin_label]: Label connected to only one pin
+    ; warning
+    @(356.87 mm, 214.63 mm): Label 'ETH_RXD1'
+
+ ** ERC messages: 22  Errors 0  Warnings 22
+
+ ** Ignored checks:
+    - Global label only appears once in the schematic
+    - Four connection points are joined together
+    - SPICE model issue
+    - Assigned footprint doesn't match footprint filters

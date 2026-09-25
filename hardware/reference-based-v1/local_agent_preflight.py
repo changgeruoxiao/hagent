@@ -53,6 +53,7 @@ def main() -> int:
 
     ok = True
     ok &= run_py(V1 / "check_pin_reservations.py")
+    ok &= run_py(V1 / "check_package_pin_support.py")
     ok &= run_py(V1 / "validate_manifest.py")
 
     KICAD_DIR.mkdir(parents=True, exist_ok=True)

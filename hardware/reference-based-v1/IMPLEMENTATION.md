@@ -85,6 +85,11 @@ hardware/reference-based-v1/kicad/
 - [ ] Ethernet 与 USB HS 无 pin mux 冲突
 - [ ] 两路 USB VBUS 角色无反向供电风险
 
+当前增量：新建独立 KiCad 工程并完成 MCU、供电、时钟、复位和调试最小
+系统；`check_pin_reservations.py` 已通过。USB FS、USB HS、Ethernet、GPIO
+排针及完整 Phase 2 门禁仍未完成。阶段自审见
+`kicad/SCHEMATIC_STAGE_1_REVIEW.md`；USB HS 受 `OI-001` 阻塞。
+
 ## Phase 3 — PCB Floorplan
 
 先布局，不布普通 GPIO：
