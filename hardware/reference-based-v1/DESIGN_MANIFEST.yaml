@@ -1,0 +1,109 @@
+project:
+  name: h743_dev_v1
+  branch: reference-based-v1
+  mcu: STM32H743ZIT6
+  package: LQFP144
+  pcb_layers: 4
+
+interfaces:
+  usb_fs:
+    role: device
+    connector: USB-C
+    speed: USB2_FULL_SPEED_12M
+    pins:
+      dm: PA11
+      dp: PA12
+      vbus_sense: PA9
+    notes:
+      - CC1/CC2 use Rd
+      - DFU/CDC/HID maintenance port
+      - no USB-PD
+
+  usb_hs:
+    role: host
+    connector: USB-A
+    speed: USB2_HIGH_SPEED_480M
+    controller: STM32H743_OTG_HS
+    phy:
+      family: USB3320C_USB3300_ULPI
+      exact_part: TBF_AFTER_PROCUREMENT_REVIEW
+    pins:
+      d0: PA3
+      ck: PA5
+      d1: PB0
+      d2: PB1
+      d3: PB10
+      d4: PB11
+      d5: PB12
+      d6: PB13
+      d7: PB5
+      stp: PC0
+      dir: PC2
+      nxt: PC3
+    vbus:
+      source: SYS_5V
+      current_limited_switch: REQUIRED
+      overcurrent_feedback: REQUIRED
+    notes:
+      - electrically USB 2.0 HS, not USB 3.x SuperSpeed
+      - route D+/D- as 90-ohm differential
+      - ULPI bus is critical and manually constrained
+
+  ethernet:
+    mac: STM32H743_ETH
+    phy: LAN8742A
+    mode: RMII
+    speed: 10_100M
+    connector: RJ45_MAGJACK
+    pins:
+      ref_clk: PA1
+      mdio: PA2
+      mdc: PC1
+      crs_dv: PA7
+      rxd0: PC4
+      rxd1: PC5
+      tx_en: PG11
+      txd0: PG13
+      txd1: PG14
+    notes:
+      - PG14 intentionally replaces MB1364 PB13
+      - PB13 is reserved for USB_HS_ULPI_D6
+
+debug:
+  swdio: PA13
+  swclk: PA14
+  swo: PB3
+  nrst: NRST
+
+clocks:
+  hse:
+    pins: [PH0, PH1]
+    source: external_crystal
+  lse:
+    pins: [PC14, PC15]
+    source: 32768Hz_crystal
+  ulpi:
+    frequency: 60MHz
+    source: external_phy
+
+power:
+  input:
+    usb_c_vbus_5v: true
+    header_5v: true
+  rails:
+    SYS_5V:
+      purpose: input_and_usb_host_vbus_source
+    VDD_3V3:
+      purpose: mcu_phy_logic
+  rules:
+    - host USB VBUS must use current-limited high-side switch
+    - VCAP capacitors must be local to MCU
+    - VDD33_USB must be locally decoupled
+    - PHY local decoupling follows exact selected datasheet
+
+forbidden:
+  - claim_usb3_superspeed
+  - ethernet_txd1_on_PB13
+  - autoroute_ulpi_without_constraints
+  - autoroute_usb_differential_pairs_without_constraints
+  - split_L2_ground_plane_for_signal_routing
